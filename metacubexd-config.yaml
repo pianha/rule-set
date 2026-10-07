@@ -119,6 +119,6 @@ rules:
   - DOMAIN-SUFFIX,sora.com,💬 ChatGPT
   - GEOSITE,openai,💬 ChatGPT
   - GEOSITE,cn,🇨🇳 国内直连
+  - GEOIP,CN,🇨🇳 国内直连,no-resolve  
   - GEOSITE,geolocation-!cn,🚀 默认
-  - GEOIP,CN,🇨🇳 国内直连,no-resolve
   - MATCH,DIRECT
