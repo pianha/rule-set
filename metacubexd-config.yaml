@@ -1,0 +1,110 @@
+mixed-port: 7890
+allow-lan: true
+mode: rule
+log-level: info
+ipv6: false
+unified-delay: true
+tcp-concurrent: true
+global-client-fingerprint: chrome
+geodata-mode: true
+geo-auto-update: true
+geo-update-interval: 24
+geox-url:
+  geoip: https://gh-proxy.com/https://github.com/Loyalsoldier/geoip/releases/latest/download/geoip.dat
+  geosite: https://gh-proxy.com/https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat
+  mmdb: https://gh-proxy.com/https://github.com/Loyalsoldier/geoip/releases/latest/download/Country.mmdb
+dns:
+  enable: true
+  listen: 127.0.0.1:1053
+  ipv6: false
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+    - "*.lan"
+    - "*.local"
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  nameserver:
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+  proxy-server-nameserver:
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+    
+#proxies: here.auto jp or us.
+
+proxy-groups:
+  - name: 🤖 MuseAI
+    type: select
+    proxies:
+      - 🇺🇸 美国
+  - name: 💬 ChatGPT
+    type: select
+    proxies:
+      - 🇯🇵 日本
+      - 🇺🇸 美国
+  - include-all: true
+    include-all-providers: true
+    filter: (?i)(美国|美东|美西|洛杉矶|纽约|西雅图|硅谷|圣何塞|达拉斯|芝加哥|波特兰|凤凰城|🇺🇸|united[
+      -]?states|los[ -]?angeles|new[ -]?york|seattle|silicon[ -]?valley|san[
+      -]?jose|dallas|chicago|portland|phoenix|\bUSA\b|\bUS\b|\bLAX\b|\bSJC\b|\bSEA\b|\bORD\b|\bDFW\b|\bEWR\b|\bJFK\b)
+    exclude-filter: (?i)(剩余|流量|到期|过期|重置|官网|订阅|公告|通知|客服|邀请|返利|回国|直连|DIRECT|traffic|expire|reset|panel|channel)
+    tolerance: 50
+    lazy: true
+    name: 🇺🇸 美国
+    type: url-test
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    proxies: []
+    use: []
+  - include-all: true
+    include-all-providers: true
+    filter: (?i)(日本|东京|大阪|名古屋|福冈|札幌|🇯🇵|japan|tokyo|osaka|nagoya|fukuoka|sapporo|\bJPN\b|\bJP\b|\bNRT\b|\bHND\b|\bKIX\b)
+    exclude-filter: (?i)(剩余|流量|到期|过期|重置|官网|订阅|公告|通知|客服|邀请|返利|回国|直连|DIRECT|traffic|expire|reset|panel|channel)
+    tolerance: 50
+    lazy: true
+    name: 🇯🇵 日本
+    type: url-test
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    proxies: []
+    use: []
+  - name: 🇨🇳 国内直连
+    type: select
+    proxies:
+      - DIRECT
+  - name: 🚫 广告
+    type: select
+    proxies:
+      - REJECT
+  - name: 🚀 默认
+    type: url-test
+    include-all: true
+    include-all-providers: true
+    filter: (?i)(日本|东京|大阪|名古屋|福冈|札幌|🇯🇵|japan|tokyo|osaka|nagoya|fukuoka|sapporo|\bJPN\b|\bJP\b|\bNRT\b|\bHND\b|\bKIX\b|美国|美东|美西|洛杉矶|纽约|西雅图|硅谷|圣何塞|达拉斯|芝加哥|波特兰|凤凰城|🇺🇸|united[
+      -]?states|los[ -]?angeles|new[ -]?york|seattle|silicon[ -]?valley|san[
+      -]?jose|dallas|chicago|portland|phoenix|\bUSA\b|\bUS\b|\bLAX\b|\bSJC\b|\bSEA\b|\bORD\b|\bDFW\b|\bEWR\b|\bJFK\b)
+    exclude-filter: (?i)(剩余|流量|到期|过期|重置|官网|订阅|公告|通知|客服|邀请|返利|回国|直连|DIRECT|traffic|expire|reset|panel|channel)
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+    lazy: true
+rules:
+  - GEOSITE,private,🇨🇳 国内直连
+  - GEOIP,private,🇨🇳 国内直连,no-resolve
+  - GEOSITE,category-ads-all,🚫 广告
+  - DOMAIN-SUFFIX,javdb.com,🇺🇸 美国
+  - DOMAIN-SUFFIX,jdbstatic.com,🇺🇸 美国
+  - DOMAIN-SUFFIX,muse.ai,🤖 MuseAI
+  - DOMAIN-SUFFIX,metaaivm.com,🤖 MuseAI
+  - DOMAIN-SUFFIX,chatgpt.com,💬 ChatGPT
+  - DOMAIN-SUFFIX,openai.com,💬 ChatGPT
+  - DOMAIN-SUFFIX,oaistatic.com,💬 ChatGPT
+  - DOMAIN-SUFFIX,oaiusercontent.com,💬 ChatGPT
+  - DOMAIN-SUFFIX,sora.com,💬 ChatGPT
+  - GEOSITE,openai,💬 ChatGPT
+  - GEOSITE,cn,🇨🇳 国内直连
+  - GEOSITE,geolocation-!cn,🚀 默认
+  - GEOIP,CN,🇨🇳 国内直连,no-resolve
+  - MATCH,DIRECT
