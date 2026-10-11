@@ -33,19 +33,19 @@ dns:
     - https://doh.pub/dns-query
         
   listeners:
-  - name: jp-port
+  - name: jp-socks
     type: socks
     listen: 0.0.0.0
     port: 7891
     proxy: "🇯🇵 日本"
     udp: true
-  - name: us-port
+  - name: us-mixed
     type: mixed
     listen: 0.0.0.0
     port: 7892
     proxy: "🇺🇸 美国"
     udp: true
-  - name: us-port
+  - name: us-socks
     type: socks
     listen: 0.0.0.0
     port: 7893
