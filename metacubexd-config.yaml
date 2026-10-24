@@ -70,7 +70,7 @@ proxy-groups:
     filter: (?i)(美国|美东|美西|洛杉矶|纽约|西雅图|硅谷|圣何塞|达拉斯|芝加哥|波特兰|凤凰城|🇺🇸|united[
       -]?states|los[ -]?angeles|new[ -]?york|seattle|silicon[ -]?valley|san[
       -]?jose|dallas|chicago|portland|phoenix|\bUSA\b|\bUS\b|\bLAX\b|\bSJC\b|\bSEA\b|\bORD\b|\bDFW\b|\bEWR\b|\bJFK\b)
-    exclude-filter: (?i)(剩余|流量|到期|过期|重置|官网|订阅|公告|通知|客服|邀请|返利|回国|直连|DIRECT|traffic|expire|reset|panel|channel)
+    exclude-filter: (?i)(剩余|流量|到期|过期|重置|官网|订阅|公告|通知|客服|邀请|返利|回国|直连|DIRECT|traffic|expire|reset|panel|channel|套餐|倍率|续费)
     tolerance: 50
     lazy: true
     name: 🇺🇸 美国0
@@ -84,7 +84,7 @@ proxy-groups:
     filter: (?i)(美国|美东|美西|洛杉矶|纽约|西雅图|硅谷|圣何塞|达拉斯|芝加哥|波特兰|凤凰城|🇺🇸|united[
       -]?states|los[ -]?angeles|new[ -]?york|seattle|silicon[ -]?valley|san[
       -]?jose|dallas|chicago|portland|phoenix|\bUSA\b|\bUS\b|\bLAX\b|\bSJC\b|\bSEA\b|\bORD\b|\bDFW\b|\bEWR\b|\bJFK\b)
-    exclude-filter: (?i)(剩余|流量|到期|过期|重置|官网|订阅|公告|通知|客服|邀请|返利|回国|直连|DIRECT|traffic|expire|reset|panel|channel)
+    exclude-filter: (?i)(剩余|流量|到期|过期|重置|官网|订阅|公告|通知|客服|邀请|返利|回国|直连|DIRECT|traffic|expire|reset|panel|channel|套餐|倍率|续费)
     tolerance: 50
     lazy: true
     name: 🇺🇸 美国1
@@ -101,7 +101,7 @@ proxy-groups:
     type: select
     proxies:
       - REJECT
-  - name: 🚀 触动
+  - name: 🚀 黛妮
     type: select
     proxies:
       - 🇺🇸 美国0
@@ -120,6 +120,7 @@ rules:
   - DOMAIN-SUFFIX,sora.com,💬 ChatGPT
   - GEOSITE,openai,💬 ChatGPT
   - GEOSITE,cn,🇨🇳 国内直连
-  - GEOIP,CN,🇨🇳 国内直连,no-resolve  
-  - GEOSITE,geolocation-!cn,🚀 触动
+  - GEOIP,CN,🇨🇳 国内直连,no-resolve
+  - GEOSITE,geolocation-!cn,🚀 黛妮
+  - GEOIP,!CN,🚀 黛妮,no-resolve
   - MATCH,DIRECT
