@@ -1,3 +1,4 @@
+
 mixed-port: 7890
 allow-lan: true
 mode: rule
@@ -6,6 +7,7 @@ ipv6: false
 unified-delay: true
 tcp-concurrent: true
 global-client-fingerprint: chrome
+
 geodata-mode: true
 geo-auto-update: true
 geo-update-interval: 24
@@ -13,6 +15,7 @@ geox-url:
   geoip: https://gh-proxy.com/https://github.com/Loyalsoldier/geoip/releases/latest/download/geoip.dat
   geosite: https://gh-proxy.com/https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat
   mmdb: https://gh-proxy.com/https://github.com/Loyalsoldier/geoip/releases/latest/download/Country.mmdb
+
 dns:
   enable: true
   listen: 127.0.0.1:1053
@@ -31,96 +34,107 @@ dns:
   proxy-server-nameserver:
     - https://dns.alidns.com/dns-query
     - https://doh.pub/dns-query
-        
+
 listeners:
-- name: us0-socks
-  type: socks
-  listen: 0.0.0.0
-  port: 7891
-  proxy: "🇺🇸 美国0"
-  udp: true
-- name: us1-mixed
-  type: mixed
-  listen: 0.0.0.0
-  port: 7892
-  proxy: "🇺🇸 美国1"
-  udp: true
-- name: us1-socks
-  type: socks
-  listen: 0.0.0.0
-  port: 7893
-  proxy: "🇺🇸 美国1"
-  udp: true
-    
+  - name: us0-socks
+    type: socks
+    listen: 0.0.0.0
+    port: 7891
+    proxy: "🇺🇸 美国0"
+    udp: true
+
+  - name: us-split-mixed
+    type: mixed
+    listen: 0.0.0.0
+    port: 7892
+    udp: true
+
+  - name: us1-socks
+    type: socks
+    listen: 0.0.0.0
+    port: 7893
+    proxy: "🇺🇸 美国1"
+    udp: true
+
+# 节点由订阅提供；不要在这里重复添加
 proxies: []
 
 proxy-groups:
+  # 只用于测速查看；不要让业务组引用它
+  - name: 🇺🇸 美国测速
+    type: url-test
+    include-all: true
+    filter: '(?i)(美国|美东|美西|洛杉矶|纽约|西雅图|硅谷|圣何塞|达拉斯|芝加哥|波特兰|凤凰城|🇺🇸|united[ -]?states|los[ -]?angeles|new[ -]?york|seattle|silicon[ -]?valley|san[ -]?jose|dallas|chicago|portland|phoenix|\bUSA\b|\bUS\b|\bLAX\b|\bSJC\b|\bSEA\b|\bORD\b|\bDFW\b|\bEWR\b|\bJFK\b)'
+    exclude-filter: '(?i)(剩余|流量|到期|过期|重置|官网|订阅|公告|通知|客服|邀请|返利|回国|直连|DIRECT|traffic|expire|reset|panel|channel|套餐|倍率|续费)'
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+    lazy: false
+
+  # 手动选择：不自动测速切换
+  - name: 🇺🇸 美国0
+    type: select
+    include-all: true
+    filter: '(?i)(美国|美东|美西|洛杉矶|纽约|西雅图|硅谷|圣何塞|达拉斯|芝加哥|波特兰|凤凰城|🇺🇸|united[ -]?states|los[ -]?angeles|new[ -]?york|seattle|silicon[ -]?valley|san[ -]?jose|dallas|chicago|portland|phoenix|\bUSA\b|\bUS\b|\bLAX\b|\bSJC\b|\bSEA\b|\bORD\b|\bDFW\b|\bEWR\b|\bJFK\b)'
+    exclude-filter: '(?i)(剩余|流量|到期|过期|重置|官网|订阅|公告|通知|客服|邀请|返利|回国|直连|DIRECT|traffic|expire|reset|panel|channel|套餐|倍率|续费)'
+
+  - name: 🇺🇸 美国1
+    type: select
+    include-all: true
+    filter: '(?i)(美国|美东|美西|洛杉矶|纽约|西雅图|硅谷|圣何塞|达拉斯|芝加哥|波特兰|凤凰城|🇺🇸|united[ -]?states|los[ -]?angeles|new[ -]?york|seattle|silicon[ -]?valley|san[ -]?jose|dallas|chicago|portland|phoenix|\bUSA\b|\bUS\b|\bLAX\b|\bSJC\b|\bSEA\b|\bORD\b|\bDFW\b|\bEWR\b|\bJFK\b)'
+    exclude-filter: '(?i)(剩余|流量|到期|过期|重置|官网|订阅|公告|通知|客服|邀请|返利|回国|直连|DIRECT|traffic|expire|reset|panel|channel|套餐|倍率|续费)'
+
   - name: 🤖 MuseAI
     type: select
     proxies:
       - 🇺🇸 美国0
       - 🇺🇸 美国1
+      - DIRECT
+
   - name: 💬 ChatGPT
     type: select
     proxies:
       - 🇺🇸 美国0
       - 🇺🇸 美国1
-  - include-all: true
-    include-all-providers: true
-    filter: (?i)(美国|美东|美西|洛杉矶|纽约|西雅图|硅谷|圣何塞|达拉斯|芝加哥|波特兰|凤凰城|🇺🇸|united[
-      -]?states|los[ -]?angeles|new[ -]?york|seattle|silicon[ -]?valley|san[
-      -]?jose|dallas|chicago|portland|phoenix|\bUSA\b|\bUS\b|\bLAX\b|\bSJC\b|\bSEA\b|\bORD\b|\bDFW\b|\bEWR\b|\bJFK\b)
-    exclude-filter: (?i)(剩余|流量|到期|过期|重置|官网|订阅|公告|通知|客服|邀请|返利|回国|直连|DIRECT|traffic|expire|reset|panel|channel|套餐|倍率|续费)
-    tolerance: 50
-    lazy: true
-    name: 🇺🇸 美国0
-    type: url-test
-    url: https://www.gstatic.com/generate_204
-    interval: 300
-    proxies: []
-    use: []
-  - include-all: true
-    include-all-providers: true
-    filter: (?i)(美国|美东|美西|洛杉矶|纽约|西雅图|硅谷|圣何塞|达拉斯|芝加哥|波特兰|凤凰城|🇺🇸|united[
-      -]?states|los[ -]?angeles|new[ -]?york|seattle|silicon[ -]?valley|san[
-      -]?jose|dallas|chicago|portland|phoenix|\bUSA\b|\bUS\b|\bLAX\b|\bSJC\b|\bSEA\b|\bORD\b|\bDFW\b|\bEWR\b|\bJFK\b)
-    exclude-filter: (?i)(剩余|流量|到期|过期|重置|官网|订阅|公告|通知|客服|邀请|返利|回国|直连|DIRECT|traffic|expire|reset|panel|channel|套餐|倍率|续费)
-    tolerance: 50
-    lazy: true
-    name: 🇺🇸 美国1
-    type: url-test
-    url: https://www.gstatic.com/generate_204
-    interval: 300
-    proxies: []
-    use: []
+      - DIRECT
+
   - name: 🇨🇳 国内直连
     type: select
     proxies:
       - DIRECT
+
   - name: 🚫 广告
     type: select
     proxies:
       - REJECT
-  - name: 🚀 黛妮
+
+  - name: 🚀 触动
     type: select
     proxies:
       - 🇺🇸 美国0
       - 🇺🇸 美国1
       - DIRECT
+
 rules:
   - GEOSITE,private,🇨🇳 国内直连
   - GEOIP,private,🇨🇳 国内直连,no-resolve
+
   - GEOSITE,category-ads-all,🚫 广告
+
   - DOMAIN-SUFFIX,muse.ai,🤖 MuseAI
   - DOMAIN-SUFFIX,metaaivm.com,🤖 MuseAI
+
   - DOMAIN-SUFFIX,chatgpt.com,💬 ChatGPT
   - DOMAIN-SUFFIX,openai.com,💬 ChatGPT
   - DOMAIN-SUFFIX,oaistatic.com,💬 ChatGPT
   - DOMAIN-SUFFIX,oaiusercontent.com,💬 ChatGPT
   - DOMAIN-SUFFIX,sora.com,💬 ChatGPT
   - GEOSITE,openai,💬 ChatGPT
+
   - GEOSITE,cn,🇨🇳 国内直连
   - GEOIP,CN,🇨🇳 国内直连,no-resolve
-  - GEOSITE,geolocation-!cn,🚀 黛妮
-  - GEOIP,!CN,🚀 黛妮,no-resolve
+
+  - GEOSITE,geolocation-!cn,🚀 触动
+  - GEOIP,!CN,🚀 触动,no-resolve
+
   - MATCH,DIRECT
