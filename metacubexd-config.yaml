@@ -74,15 +74,13 @@ proxy-groups:
   # 手动选择：不自动测速切换
   - name: 🇺🇸 美国0
     type: select
-    include-all: true
-    filter: '(?i)(美国|美东|美西|洛杉矶|纽约|西雅图|硅谷|圣何塞|达拉斯|芝加哥|波特兰|凤凰城|🇺🇸|united[ -]?states|los[ -]?angeles|new[ -]?york|seattle|silicon[ -]?valley|san[ -]?jose|dallas|chicago|portland|phoenix|\bUSA\b|\bUS\b|\bLAX\b|\bSJC\b|\bSEA\b|\bORD\b|\bDFW\b|\bEWR\b|\bJFK\b)'
-    exclude-filter: '(?i)(剩余|流量|到期|过期|重置|官网|订阅|公告|通知|客服|邀请|返利|回国|直连|DIRECT|traffic|expire|reset|panel|channel|套餐|倍率|续费)'
+    proxies:
+      - us0
 
   - name: 🇺🇸 美国1
     type: select
-    include-all: true
-    filter: '(?i)(美国|美东|美西|洛杉矶|纽约|西雅图|硅谷|圣何塞|达拉斯|芝加哥|波特兰|凤凰城|🇺🇸|united[ -]?states|los[ -]?angeles|new[ -]?york|seattle|silicon[ -]?valley|san[ -]?jose|dallas|chicago|portland|phoenix|\bUSA\b|\bUS\b|\bLAX\b|\bSJC\b|\bSEA\b|\bORD\b|\bDFW\b|\bEWR\b|\bJFK\b)'
-    exclude-filter: '(?i)(剩余|流量|到期|过期|重置|官网|订阅|公告|通知|客服|邀请|返利|回国|直连|DIRECT|traffic|expire|reset|panel|channel|套餐|倍率|续费)'
+    proxies:
+      - us1
 
   - name: 🤖 MuseAI
     type: select
