@@ -104,7 +104,14 @@ proxy-groups:
     proxies:
       - REJECT
 
-  - name: 🚀 触动
+  - name: 🪜 云梯
+    type: select
+    proxies:
+      - 🇺🇸 美国0
+      - 🇺🇸 美国1
+      - DIRECT
+      
+  - name: 🛟 兜底
     type: select
     proxies:
       - 🇺🇸 美国0
@@ -130,7 +137,7 @@ rules:
   - GEOSITE,cn,🇨🇳 国内直连
   - GEOIP,CN,🇨🇳 国内直连,no-resolve
 
-  - GEOSITE,geolocation-!cn,🚀 触动
-  - GEOIP,!CN,🚀 触动,no-resolve
+  - GEOSITE,geolocation-!cn,🪜 云梯
+  - GEOIP,!CN,🪜 云梯,no-resolve
 
-  - MATCH,DIRECT
+  - MATCH,🛟 兜底
